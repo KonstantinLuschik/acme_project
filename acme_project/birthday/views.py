@@ -1,7 +1,6 @@
-from django.views.generic import (
-    CreateView, DeleteView, DetailView, ListView, UpdateView
-)
 from django.urls import reverse_lazy
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 
 from .forms import BirthdayForm
 from .models import Birthday
