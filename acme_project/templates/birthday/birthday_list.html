@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {% for birthday in birthdays %}
+  {% for birthday in page_obj %}
     <!-- Добавим класс row: каждая запись — это строка -->
     <div class="row">
       <!-- Первая "колонка" в строке, её ширина — 2/12 -->
@@ -15,7 +15,8 @@
       <!-- Вторая "колонка" в строке, её ширина — 10/12 -->
       <div class="col-10">  
         <div>
-          {{ birthday.first_name }} {{ birthday.last_name }} — {{ birthday.birthday }}
+          {{ birthday.first_name }} {{ birthday.last_name }} — {{ birthday.birthday }}<br>
+          <a href="{% url 'birthday:detail' birthday.id %}">Сколько до дня рождения?</a>
         </div>      
         <div>
           <a href="{% url 'birthday:edit' birthday.id %}">Изменить запись</a> | <a href="{% url 'birthday:delete' birthday.id %}">Удалить запись</a>
@@ -27,4 +28,7 @@
       {% endif %}
     </div>
   {% endfor %}
+
+  {% include "includes/paginator.html" %}
+  
 {% endblock %}
