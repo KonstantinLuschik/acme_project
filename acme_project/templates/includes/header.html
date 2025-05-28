@@ -1,3 +1,4 @@
+<!-- templates/includes/header.html -->
 <header>
   <nav class="navbar shadow-sm">
     <div class="container">
@@ -16,11 +17,34 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if view_name == 'birthday:list' %} active {% endif %}"
-              href="{% url 'birthday:list' %}">
-              Список дней рождения
+            <a class="nav-link {% if view_name == 'birthday:list' %} active {% endif %}" href="{% url 'birthday:list' %}">
+              Cписок дней рождения
             </a>
           </li>
+          {% if user.is_authenticated %}
+            <span class="navbar-text">Пользователь: <b>{{ user.username }}</b></span>
+            <!-- Новая кнопка -->
+            <li class="nav-item">
+              <a class="nav-link{% if view_name == 'password_change' %} active {% endif %}"
+                href="{% url 'password_change' %}">Изменить пароль</a>
+            </li>
+            <li class="nav-item">
+              <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                  <button type="submit" class="nav-link btn btn-link" style="padding: 0; border: none; background: none;">
+                   Выйти
+                  </button>
+              </form>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link{% if view_name == 'login' %} active {% endif %}" href="{% url 'login' %}">Войти</a>
+            </li>
+            <!-- Новая кнопка -->
+            <li class="nav-item">
+              <a class="nav-link{% if view_name == 'registration' %} active {% endif %}" href="{% url 'registration' %}">Регистрация</a>
+            </li>
+          {% endif %}
         </ul>
       {% endwith %}
     </div>
